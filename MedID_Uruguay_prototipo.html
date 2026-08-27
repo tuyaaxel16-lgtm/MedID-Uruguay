@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b6e78">
+<title>MedID Uruguay | Pulsera de emergencia</title>
+<style>
+:root{
+  --primary:#0b6e78;
+  --primary2:#084f58;
+  --bg:#f4f7f8;
+  --text:#14242a;
+  --muted:#63757c;
+  --card:#fff;
+  --line:#dce5e8;
+  --danger:#b42318;
+  --danger-bg:#fff2f0;
+  --success:#137333;
+  --success-bg:#edf8f0;
+  --shadow:0 16px 45px rgba(17,45,53,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+button,input{font:inherit}
+header{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--primary);font-size:20px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--primary);color:#fff;display:grid;place-items:center}
+.badge{font-size:12px;color:var(--muted);background:#eef3f4;padding:7px 10px;border-radius:999px}
+main{max-width:1050px;margin:auto;padding:35px 18px 70px}
+.screen{display:none}
+.screen.active{display:block}
+.hero{min-height:calc(100vh - 142px);display:grid;place-items:center;text-align:center}
+.hero-card{max-width:760px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:52px 28px;box-shadow:var(--shadow)}
+.nfc-icon{width:92px;height:92px;border-radius:50%;margin:0 auto 22px;background:#e6f5f6;color:var(--primary);display:grid;place-items:center;font-size:42px}
+h1{font-size:clamp(32px,6vw,54px);margin:0 0 15px;letter-spacing:-1.5px}
+h2{margin:0 0 8px;font-size:28px}
+h3{margin:0 0 8px}
+p{line-height:1.6;color:var(--muted)}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.btn{border:0;border-radius:12px;padding:14px 20px;cursor:pointer;font-weight:750;transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-dark{background:#172c33;color:#fff}
+.btn-light{background:#fff;border:1px solid var(--line);color:var(--text)}
+.btn-danger{background:var(--danger);color:#fff}
+.top{margin-bottom:22px}
+.crumb{color:var(--primary);font-size:13px;font-weight:700;margin-bottom:8px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:23px;box-shadow:0 7px 24px rgba(17,45,53,.05)}
+.choice{cursor:pointer;text-align:left;min-height:220px;transition:.2s}
+.choice:hover{border-color:#9fc8cc;transform:translateY(-2px);box-shadow:var(--shadow)}
+.choice-icon{font-size:34px;margin-bottom:18px}
+.choice.public{border-top:5px solid #36a269}
+.choice.private{border-top:5px solid #b42318}
+.label{display:block;font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.value{font-size:17px;font-weight:750}
+.data-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.data{padding:14px;background:#f7f9fa;border-radius:12px}
+.alert{padding:15px;border-radius:12px;margin-bottom:18px;line-height:1.5}
+.alert-success{background:var(--success-bg);color:var(--success)}
+.alert-danger{background:var(--danger-bg);color:var(--danger)}
+input{width:100%;padding:14px;border:1px solid #cdd9dc;border-radius:11px;outline:none;margin:8px 0 15px}
+input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(11,110,120,.12)}
+.lock{font-size:45px;text-align:center;margin-bottom:10px}
+.login{max-width:470px;margin:50px auto}
+.note{font-size:12px;color:var(--muted)}
+.status{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.dot{width:9px;height:9px;border-radius:50%;background:#31a45d}
+footer{text-align:center;color:#7a898e;font-size:12px;padding:0 20px 30px}
+@media(max-width:700px){
+ header{padding:0 18px}
+ .grid,.data-grid{grid-template-columns:1fr}
+ .hero-card{padding:38px 20px}
+ main{padding-top:25px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><div class="brand-mark">✚</div>MedID Uruguay</div>
+  <div class="badge">Prototipo demostrativo</div>
+</header>
+
+<main>
+
+<section id="home" class="screen active">
+  <div class="hero">
+    <div class="hero-card">
+      <div class="nfc-icon">◉</div>
+      <h1>Identificación médica de emergencia</h1>
+      <p>
+        Pulsera NFC asociada a un perfil seguro. El acceso se divide
+        entre información pública para emergencias y un área privada
+        exclusiva para profesionales autorizados.
+      </p>
+      <div class="status" style="justify-content:center;margin-top:18px">
+        <span class="dot"></span> Pulsera identificada · MED-28491
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="go('access')">Continuar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="access" class="screen">
+  <div class="top">
+    <div class="crumb" onclick="go('home')">← Volver</div>
+    <h2>¿Cómo querés acceder?</h2>
+    <p>Seleccioná el tipo de acceso correspondiente.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card choice public" onclick="go('public')">
+      <div class="choice-icon">🟢</div>
+      <h3>Uso público</h3>
+      <p>
+        Acceso inmediato a información básica para ayudar a identificar
+        a la persona y contactar a un familiar o contacto de emergencia.
+      </p>
+      <strong>Acceder sin contraseña →</strong>
+    </div>
+
+    <div class="card choice private" onclick="go('login')">
+      <div class="choice-icon">🔐</div>
+      <h3>Uso privado</h3>
+      <p>
+        Área reservada para profesionales de la salud autorizados.
+        Requiere autenticación.
+      </p>
+      <strong>Acceso profesional →</strong>
+    </div>
+  </div>
+</section>
+
+<section id="public" class="screen">
+  <div class="top">
+    <div class="crumb" onclick="go('access')">← Elegir otro acceso</div>
+    <h2>Información pública</h2>
+    <p>Información limitada para asistencia y devolución de la pulsera.</p>
+  </div>
+
+  <div class="alert alert-success">
+    <strong>✓ Acceso público permitido</strong><br>
+    Esta sección no muestra información médica sensible.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="label">Nombre</span>
+      <div class="value">Martín Pereira</div>
+      <p class="note">Se muestra únicamente la información necesaria para identificación.</p>
+    </div>
+
+    <div class="card">
+      <span class="label">Identificador de pulsera</span>
+      <div class="value">MED-28491</div>
+    </div>
+
+    <div class="card">
+      <h3>🚨 Contacto de emergencia</h3>
+      <p><strong>Laura Pereira</strong><br>Contacto familiar autorizado</p>
+      <button class="btn btn-primary" onclick="alert('En una versión real, este botón iniciaría la llamada al contacto autorizado.')">📞 Contactar</button>
+    </div>
+
+    <div class="card">
+      <h3>🔎 ¿Encontraste la pulsera?</h3>
+      <p>Podés informar que fue encontrada sin acceder a datos privados.</p>
+      <button class="btn btn-light" onclick="alert('En una versión real, se abriría un formulario seguro para coordinar la devolución.')">Informar hallazgo</button>
+    </div>
+  </div>
+
+  <div class="alert alert-danger" style="margin-top:18px">
+    <strong>Privacidad:</strong> el tipo de sangre, alergias, medicamentos,
+    antecedentes y demás información médica no son visibles en esta sección.
+  </div>
+</section>
+
+<section id="login" class="screen">
+  <div class="login">
+    <div class="card">
+      <div class="lock">🔐</div>
+      <h2 style="text-align:center">Acceso profesional</h2>
+      <p style="text-align:center">
+        Solo para profesionales autorizados.
+      </p>
+
+      <label for="professional">Usuario profesional</label>
+      <input id="professional" placeholder="Ej.: dra.valentina.rodriguez">
+
+      <label for="password">Contraseña</label>
+      <input id="password" type="password" placeholder="Contraseña">
+
+      <div id="loginError" class="alert alert-danger" style="display:none">
+        Usuario o contraseña incorrectos.
+      </div>
+
+      <button class="btn btn-primary" style="width:100%" onclick="login()">Ingresar</button>
+      <button class="btn btn-light" style="width:100%;margin-top:9px" onclick="go('access')">Volver</button>
+
+      <p class="note" style="margin-top:18px">
+        DEMO: usuario <strong>dra.valentina.rodriguez</strong> ·
+        contraseña <strong>MedID-Demo-2026</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="medical" class="screen">
+  <div class="top">
+    <div class="crumb" onclick="logout()">← Cerrar sesión</div>
+    <h2>Perfil médico</h2>
+    <p>Área privada · acceso profesional autenticado</p>
+  </div>
+
+  <div class="alert alert-danger">
+    <strong>🔴 INFORMACIÓN MÉDICA CONFIDENCIAL</strong><br>
+    Datos ficticios utilizados exclusivamente para la demostración del prototipo.
+  </div>
+
+  <div class="card" style="margin-bottom:18px">
+    <h3>Identificación del paciente</h3>
+    <div class="data-grid" style="margin-top:15px">
+      <div class="data"><span class="label">Nombre completo</span><span class="value">Martín Alejandro Pereira</span></div>
+      <div class="data"><span class="label">Fecha de nacimiento</span><span class="value">18/06/1998</span></div>
+      <div class="data"><span class="label">Identificador</span><span class="value">MED-28491</span></div>
+      <div class="data"><span class="label">Departamento</span><span class="value">Soriano, Uruguay</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:18px">
+    <h3>⚠️ Información clínica relevante</h3>
+    <div class="data-grid" style="margin-top:15px">
+      <div class="data"><span class="label">Tipo de sangre</span><span class="value">O positivo (O+)</span></div>
+      <div class="data"><span class="label">Alergias registradas</span><span class="value">Penicilina</span></div>
+      <div class="data"><span class="label">Medicamentos relevantes</span><span class="value">Información registrada en el perfil</span></div>
+      <div class="data"><span class="label">Antecedentes relevantes</span><span class="value">Información autorizada por el usuario</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🚨 Contacto de emergencia</h3>
+    <p><strong>Laura Pereira</strong><br>Contacto familiar autorizado · 09X XXX XXX</p>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h3>🔎 Registro de acceso</h3>
+    <p>
+      Profesional: Dra. Valentina Rodríguez<br>
+      Especialidad: Medicina General<br>
+      Estado: Profesional verificado<br>
+      Hora: <span id="accessTime">--</span>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  MedID Uruguay · Prototipo para demostración · Todos los datos personales y médicos mostrados son ficticios.
+</footer>
+
+<script>
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function login(){
+  const user=document.getElementById('professional').value.trim();
+  const pass=document.getElementById('password').value;
+  const error=document.getElementById('loginError');
+
+  // SOLO DEMO. En producción esta validación debe hacerse en un servidor.
+  if(user === 'dra.valentina.rodriguez' && pass === 'MedID-Demo-2026'){
+    error.style.display='none';
+    document.getElementById('accessTime').textContent =
+      new Date().toLocaleString('es-UY');
+    go('medical');
+  }else{
+    error.style.display='block';
+  }
+}
+
+function logout(){
+  document.getElementById('professional').value='';
+  document.getElementById('password').value='';
+  go('access');
+}
+</script>
+
+</body>
+</html>
